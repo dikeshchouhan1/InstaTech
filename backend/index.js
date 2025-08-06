@@ -11,7 +11,8 @@ const app=express()
 app.use(cors(
     {
         origin:"http://localhost:5173",
-        withCreadentials:true
+          credentials: true // ✅ correct spelling
+
     }
 ))
 app.use(express.json())
