@@ -10,12 +10,15 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/signup`,
@@ -24,13 +27,18 @@ const SignUp = () => {
       );
 
       console.log("Signup successful:", result.data);
+
+      // Reset form fields
       setName('');
       setUserName('');
       setEmail('');
       setPassword('');
+
       navigate('/signin'); // Redirect after successful signup
     } catch (err) {
-      console.error("Signup error:", err.response?.data || err.message);
+      const serverError = err.response?.data;
+      setError(serverError?.errors || serverError?.message || "Something went wrong.");
+      console.error("Signup error:", serverError || err.message);
     } finally {
       setLoading(false);
     }
@@ -47,6 +55,7 @@ const SignUp = () => {
             <span>Sign Up to</span>
             <img src='' alt='Logo' className='w-[60px]' />
           </div>
+
 
           <input
             type='text'
@@ -88,6 +97,20 @@ const SignUp = () => {
             required
           />
 
+          {/* Error Message Section */}
+          {error && (
+            <div className="w-full bg-red-50 border border-red-400 text-red-700 rounded-xl p-3">
+              <ul className="list-disc list-inside space-y-1">
+                {Array.isArray(error) ? (
+                  error.map((errMsg, idx) => (
+                    <li key={idx} className="text-sm">{errMsg}</li>
+                  ))
+                ) : (
+                  <li className="text-sm">{error}</li>
+                )}
+              </ul>
+            </div>
+          )}
           <button
             type='submit'
             disabled={loading}

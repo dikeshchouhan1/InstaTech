@@ -8,12 +8,15 @@ const SignIn = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(''); // for error message
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+
     try {
       const result = await axios.post(
         `${serverUrl}/api/auth/signin`,
@@ -24,9 +27,10 @@ const SignIn = () => {
       console.log("Signin successful:", result.data);
       setUserName('');
       setPassword('');
-      // navigate('/dashboard'); // or any protected route
+      // navigate('/dashboard');
     } catch (err) {
       console.error("Signin error:", err.response?.data || err.message);
+      setError(err.response?.data?.message || 'Invalid username or password.');
     } finally {
       setLoading(false);
     }
@@ -73,6 +77,13 @@ const SignIn = () => {
               Forgot Password?
             </span>
           </div>
+
+          {/* Error Section */}
+          {error && (
+            <div className='w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl text-sm animate-fadeIn'>
+              {error}
+            </div>
+          )}
 
           <button
             type='submit'
