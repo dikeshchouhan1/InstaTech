@@ -56,6 +56,20 @@ const SignUp = () => {
             <img src='' alt='Logo' className='w-[60px]' />
           </div>
 
+          {/* Error Message Section */}
+          {error && (
+            <div className="w-full bg-red-50 border border-red-400 text-red-700 rounded-xl p-3">
+              <ul className="list-disc list-inside space-y-1">
+                {Array.isArray(error) ? (
+                  error.map((errMsg, idx) => (
+                    <li key={idx} className="text-sm">{errMsg}</li>
+                  ))
+                ) : (
+                  <li className="text-sm">{error}</li>
+                )}
+              </ul>
+            </div>
+          )}
 
           <input
             type='text'
@@ -97,20 +111,6 @@ const SignUp = () => {
             required
           />
 
-          {/* Error Message Section */}
-          {error && (
-            <div className="w-full bg-red-50 border border-red-400 text-red-700 rounded-xl p-3">
-              <ul className="list-disc list-inside space-y-1">
-                {Array.isArray(error) ? (
-                  error.map((errMsg, idx) => (
-                    <li key={idx} className="text-sm">{errMsg}</li>
-                  ))
-                ) : (
-                  <li className="text-sm">{error}</li>
-                )}
-              </ul>
-            </div>
-          )}
           <button
             type='submit'
             disabled={loading}

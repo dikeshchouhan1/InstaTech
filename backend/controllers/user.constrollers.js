@@ -13,3 +13,14 @@ export const getCurrentUser=async(req,res)=>{
         return res.status(500).json({message:`get current user erro${err}`})
     }
 }
+export const suggestedUsers = async (req, res) => {
+  try {
+    const users = await User.find({
+      _id: { $ne: req.userId } // Exclude the current user
+    }).select("-password");
+
+    return res.status(200).json(users); // ✅ Send users to frontend
+  } catch (err) {
+    return res.status(500).json({ message: `get current user error: ${err.message}` });
+  }
+};
