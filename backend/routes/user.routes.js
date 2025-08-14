@@ -1,10 +1,16 @@
-import express from "express"
-import isAuth from "../middlewares/isAuth.js"
-import { getCurrentUser, suggestedUsers } from "../controllers/user.constrollers.js"
+import express from "express";
+import isAuth from "../middlewares/isAuth.js";
+import { editProfile, getCurrentUser, getProfileUser, suggestedUsers } from "../controllers/user.constrollers.js";
+import { upload } from "../middlewares/multer.js";
 
+const userRouter = express.Router();
 
-const userRouter=express.Router()
+userRouter.get("/current", isAuth, getCurrentUser);
+userRouter.get("/suggested", isAuth, suggestedUsers);
 
-userRouter.get("/current",isAuth,getCurrentUser)
-userRouter.get("/suggested",isAuth,suggestedUsers)
-export default userRouter
+// ✅ Pass username as URL parameter
+userRouter.get("/getProfile/:userName", isAuth, getProfileUser);
+
+userRouter.post("/editProfile", isAuth, upload.single("profileImage"), editProfile);
+
+export default userRouter;
