@@ -11,18 +11,20 @@ const Nav = () => {
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
 
+  // Hide Nav if user data is not yet loaded
+  if (!userData) return null;
+
   const handleProfileClick = () => {
-    if (userData?.userName) {
-      navigate(`/profile/${userData.userName}`);
-    } else {
-      console.warn("User data not available, cannot navigate to profile.");
-    }
+    navigate(`/profile/${userData.userName}`);
   };
 
   return (
     <div className="w-[90%] lg:w-[40%] h-[80px] bg-black flex justify-around items-center fixed bottom-[20px] rounded-full shadow-2xl shadow-[#000000] z-[100]">
       
-      <MdHomeFilled className="text-white w-[25px] h-[25px] cursor-pointer" />
+      <MdHomeFilled
+        className="text-white w-[25px] h-[25px] cursor-pointer"
+        onClick={() => navigate("/")}
+      />
       <IoMdSearch className="text-white w-[25px] h-[25px] cursor-pointer" />
       <FaPlusSquare className="text-white w-[25px] h-[25px] cursor-pointer" />
       <MdOutlineOndemandVideo className="text-white w-[25px] h-[28px] cursor-pointer" />
@@ -32,7 +34,7 @@ const Nav = () => {
         onClick={handleProfileClick}
       >
         <img
-          src={userData?.profilePic || dp}
+          src={userData?.profileImage || dp}
           alt="Profile"
           className="w-full h-full object-cover"
         />

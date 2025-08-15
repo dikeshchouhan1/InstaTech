@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import useGetCurrentUser from './Hooks/getCurrentUser';
 import useSuggestedUser from './Hooks/getSuggestUser';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 export const serverUrl = 'http://localhost:5000';
 
@@ -37,6 +38,10 @@ function App() {
       <Route
         path="/profile/:userName"
         element={userData ? <Profile /> : <Navigate to="/signin" />}
+      />
+      <Route
+        path="/editProfile/:username"
+        element={userData ? <EditProfile /> : <Navigate to="/signin" />}
       />
     </Routes>
   );

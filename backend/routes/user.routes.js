@@ -1,7 +1,7 @@
 import express from "express";
 import isAuth from "../middlewares/isAuth.js";
 import { editProfile, getCurrentUser, getProfileUser, suggestedUsers } from "../controllers/user.constrollers.js";
-import { upload } from "../middlewares/multer.js";
+import  upload  from "../public/multer.js";
 
 const userRouter = express.Router();
 

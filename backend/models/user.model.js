@@ -27,6 +27,17 @@ const userSchema=new mongoose.Schema({
    profileImage:{
     type:String
    },
+    bio:{
+    type:String
+   },
+   profession:{
+    type:String
+   },
+   gender:{
+    type:String,
+    enum:['male','feamle']
+   },
+
 
    following:[
     {
