@@ -1,37 +1,43 @@
 import mongoose, { Mongoose } from "mongoose";
 
-const postSchema=new mongoose.Schema({
-    auther:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true
+const postSchema = new mongoose.Schema({
+    auther: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
-    mediaType:{
-        type:String,
-        enum:["image","video"],
-        required:true
+    mediaType: {
+        type: String,
+        enum: ["image", "video"],
+        required: true
     },
-    media:{
-        type:String,
-        required:true
+    media: {
+        type: String,
+        required: true
     },
-    caption:{
-        type:string
+    caption: {
+        type: String
     },
-    likes:[
+    likes: [
         {
-           type:mongoose.Schema.Types.ObjectId,
-        ref:"User" 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         }
     ],
-    comments:[
+    comments: [
         {
-           type:mongoose.Schema.Types.ObjectId,
-        ref:"User" 
+            auther: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            message: {
+                type: String,
+                required: true
+            }
         }
     ]
 
-},{timeseries:true})
+}, { timeseries: true })
 
-const Post=mongoose.model("Post",postSchema)
+const Post = mongoose.model("Post", postSchema)
 export default Post

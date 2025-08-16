@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
+import logo from '../assets/logo.png'; // Assuming you have a logo image
 const SignIn = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -42,7 +43,7 @@ const SignIn = () => {
         >
           <div className='text-xl font-semibold mt-4 flex gap-2 items-center'>
             <span>Sign In to</span>
-            <img src='' alt='Logo' className='w-[60px]' />
+            <img src={logo} alt='Logo' className='w-[60px]' />
           </div>
 
           <input

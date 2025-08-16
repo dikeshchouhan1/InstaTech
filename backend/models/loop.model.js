@@ -13,7 +13,7 @@ const loopSchema=new mongoose.Schema({
             required:true
         },
         caption:{
-            type:string
+            type:String
         },
         likes:[
             {
@@ -29,7 +29,7 @@ const loopSchema=new mongoose.Schema({
         ]
     
 },{
-timeseries:ture
+timeseries:true
 })
 
 const Loop=mongoose.model("Loop",loopSchema)

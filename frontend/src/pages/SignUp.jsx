@@ -3,6 +3,7 @@ import axios from 'axios';
 import { serverUrl } from '../App';
 import { ClipLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
+import { setUserData } from '../redux/userSlice';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -11,7 +12,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+ const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,9 +27,7 @@ const SignUp = () => {
         { withCredentials: true }
       );
 
-      console.log("Signup successful:", result.data);
-
-      // Reset form fields
+      dispatch(setUserData(result.data))
       setName('');
       setUserName('');
       setEmail('');
